@@ -10,23 +10,100 @@ package paquete1;
  * @author reroes
  */
 public class Empresa {
+
     private String nombre;
-    private Edificio [] edificios;
+    private Edificio[] edificios;
     private double costoBienesInmuebles;
-    
-    public void establecerNombre(String m){
+    private Vehiculo[] vehiculos;
+    private double costoVehiculos;
+    private double costoTotalBienes;
+
+    public void establecerNombre(String m) {
         nombre = m;
     }
-    
-    public void establecerEdificios(Edificio[] m){
+
+    public void establecerEdificios(Edificio[] m) {
         edificios = m;
     }
-    
-    public String obtenerNombre(){
-        return nombre;
+
+    public void establecerCostoBienesInmuebles() {
+        double suma = 0;
+        for (int i = 0; i < obtenerEdificios().length; i++) {
+            suma += edificios[i].obtenerCosto();
+        }
+        costoBienesInmuebles = suma;
     }
     
-    public Edificio[] obtenerEdificios(){
+    public void establecerVehiculos(Vehiculo[] m) {
+        vehiculos = m;
+    }
+    
+    public void establecerCostoVehiculos() {
+        double suma = 0;
+        for (int i = 0; i < vehiculos.length; i++) {
+            suma += vehiculos[i].obtenerCosto();
+        }
+        costoVehiculos = suma;
+    }
+    
+    public void establecerCostoTotalBienes(){
+        costoTotalBienes = costoBienesInmuebles + costoVehiculos;
+    }
+
+    public String obtenerNombre() {
+        return nombre;
+    }
+
+    public Edificio[] obtenerEdificios() {
         return edificios;
+    }
+
+    public double obtenerCostoBienesInmuebles() {
+        return costoBienesInmuebles;
+    }
+    
+    
+    public Vehiculo[] obtenerVehiculos() {
+        return vehiculos;
+    }
+    
+    public double obtenerCostoVehiculos() {
+        return costoVehiculos;
+    }
+    
+    public double obtenerCostoTotalBienes() {
+        return costoTotalBienes;
+    }
+
+    @Override
+    public String toString() {
+        String reporte = String.format("%s\nLista de Edficios:\n",
+                nombre);
+        for (int i = 0; i < edificios.length; i++) {
+            reporte = String.format("%s%d %s (%.2f)\n",
+                    reporte,
+                    i + 1,
+                    edificios[i].obtenerNombre().toUpperCase(),
+                    edificios[i].obtenerCosto());
+        }
+        reporte = String.format("%sTotal de inmuebles: %.2f\n\n"
+                + "Lista Vehiculos\n",
+                reporte,
+                costoBienesInmuebles);
+        for (int i = 0; i < vehiculos.length; i++) {
+            reporte = String.format("%s%d %s, %s (%.2f)\n",
+                    reporte,
+                    i + 1,
+                    vehiculos[i].obtenerTipo().toUpperCase(),
+                    vehiculos[i].obtenerMatricula().toUpperCase(),
+                    vehiculos[i].obtenerCosto());
+        }
+        reporte = String.format("%sTotal de vehiculos: %.2f\n\n",
+                reporte,
+                costoVehiculos);
+        reporte = String.format("%sTotal bienes: %.2f\n",
+                reporte,
+                costoTotalBienes);
+        return reporte;
     }
 }

@@ -32,4 +32,12 @@ public class Edificio {
     public double obtenerCosto(){
         return costo;
     }    
+    @Override
+    public String toString(){
+        String cadena = String.format("Edificio de nombre: %s\n"
+                + "Costo del edificio: %.2f",
+                nombre,obtenerCosto());
+        return cadena;
+    }
+    
 }
